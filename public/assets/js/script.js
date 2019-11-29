@@ -5,13 +5,13 @@ window.onload = () => {
         console.log("hello")
         event.preventDefault();
 
-        let updatedBurger = true;
-
-        let id = $(this).data("id");
-
-        $.ajax("/api/burgers/" + id, {
+       // let updatedBurger = true; <====== not needed we can assume if the is function is fired that it will be consumed
+        
+        let id = {id: $(this).attr("id")};
+        console.log(id)
+        $.ajax("/api/burgers/", {
             type: "PUT",
-            data: updatedBurger
+            data: id
         }).then(
             function () {
                 console.log("updated quote");

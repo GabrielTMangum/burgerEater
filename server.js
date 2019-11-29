@@ -11,7 +11,7 @@ if (process.env.JAWSDB_URL) {
         host: "localhost",
         port: 3306,
         user: "root",
-        password: "rootroot",
+        password: "root",
         database: "burgers_db"
     });
 }
@@ -34,12 +34,13 @@ app.get("/", function (req, res) {
     })
 });
 
-app.put("/api/burgers/:id", function (req, res) {
-    const id = req.params.id;
-    const updatedBurger = req.body;
+app.put("/api/burgers/", function (req, res) {
+    // const id = req.params.id;
+    const id = req.body.id
 
+    console.log(id)
     connection.query(
-        "UPDATE burgers SET devoured = ? WHERE ?", [updatedBurger, { id: id }], (err, data) => {
+        "UPDATE burgers SET devoured = ? WHERE ?", [1, { id: id }], (err, data) => {
             if (err) throw err;
 
             res.end();
