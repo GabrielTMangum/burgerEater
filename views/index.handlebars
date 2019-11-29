@@ -1,0 +1,17 @@
+<h1>Burger Eater</h1>
+
+{{#each burgers}}
+    {{#if devoured}}
+        <li class="list-group-item float-right">
+            <p>{{burger_name}}</p>
+        </li>
+    {{else}}
+        <li class="list-group-item float-left">
+            <p>{{burger_name}}</p>
+        <button type="button" id="{{id}}" class="btn btn-secondary btn-lg">Eat It!</button>
+        </li>
+    {{/if}}
+{{/each}}
+
+<input class="form-control form-control-lg" type="text" placeholder="New Burger Name">
+<button type="button" class="btn btn-danger btn-lg">Submit</button>
