@@ -1,25 +1,22 @@
-$(function() {
-$(".update-form").on("submit", function(event) {
-    // Make sure to preventDefault on a submit event.
-    event.preventDefault();
+window.onload = () => {
+    console.log('test')
 
-    var updatedQuote = {
-      author: $("#auth").val().trim(),
-      quote: $("#quo").val().trim()
-    };
+    $(".eatBtn").on("click", function (event) {
+        console.log("hello")
+        event.preventDefault();
 
-    var id = $(this).data("id");
+        let updatedBurger = true;
 
-    // Send the POST request.
-    $.ajax("/api/quotes/" + id, {
-      type: "PUT",
-      data: updatedQuote
-    }).then(
-      function() {
-        console.log("updated quote");
-        // Reload the page to get the updated list
-        location.assign("/");
-      }
-    );
-  });
-});
+        let id = $(this).data("id");
+
+        $.ajax("/api/burgers/" + id, {
+            type: "PUT",
+            data: updatedBurger
+        }).then(
+            function () {
+                console.log("updated quote");
+                location.assign("/");
+            }
+        );
+    });
+};

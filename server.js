@@ -9,7 +9,7 @@ var PORT = process.env.PORT || 8080;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(express.static("public"));
+app.use("/public" ,express.static("./public"));
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -40,7 +40,7 @@ app.put("/api/burgers/:id", function(req, res) {
     const updatedBurger = req.body;
   
     connection.query(
-      "UPDATE quotes SET ? WHERE ?", [updatedurger, {id: id}], (err, data) => {
+      "UPDATE burgers SET devoured = ? WHERE ?", [updatedBurger, {id: id}], (err, data) => {
       if (err) throw err;
   
       res.end();
