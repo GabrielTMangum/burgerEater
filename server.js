@@ -26,13 +26,6 @@ app.use("/public", express.static("./public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-
-
-connection.connect(function (err) {
-    if (err) throw err;
-    console.log("connected as id " + connection.threadId);
-});
-
 app.get("/", function (req, res) {
     connection.query("SELECT * FROM burgers", (err, data) => {
         if (err) throw err;
