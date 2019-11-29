@@ -1,26 +1,32 @@
-var express = require("express");
-var exphbs = require("express-handlebars");
-var mysql = require("mysql");
+const express = require("express");
+const exphbs = require("express-handlebars");
+const mysql = require("mysql");
 
-var app = express();
+const app = express();
 
-var PORT = process.env.PORT || 8080;
+const PORT = process.env.JAWSDB_URL
+
+if (process.env.JAWSDB_URL) {
+    let connection = mysql.createConnection(process.env.JAWSDB_URL)
+} else {
+    var connection = mysql.createConnection({
+        host: "localhost",
+        port: 3306,
+        user: "root",
+        password: "rootroot",
+        database: "burgers_db"
+    });
+}
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("/public" ,express.static("./public"));
+app.use("/public", express.static("./public"));
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-var connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "rootroot",
-    database: "burgers_db"
-});
+
 
 connection.connect(function (err) {
     if (err) throw err;
@@ -35,17 +41,17 @@ app.get("/", function (req, res) {
     })
 });
 
-app.put("/api/burgers/:id", function(req, res) {
+app.put("/api/burgers/:id", function (req, res) {
     const id = req.params.id;
     const updatedBurger = req.body;
-  
+
     connection.query(
-      "UPDATE burgers SET devoured = ? WHERE ?", [updatedBurger, {id: id}], (err, data) => {
-      if (err) throw err;
-  
-      res.end();
-    })
-  });
+        "UPDATE burgers SET devoured = ? WHERE ?", [updatedBurger, { id: id }], (err, data) => {
+            if (err) throw err;
+
+            res.end();
+        })
+});
 
 app.post("/api/burgers", function (req, res) {
     const newBurger = req.body;
@@ -56,6 +62,6 @@ app.post("/api/burgers", function (req, res) {
     })
 });
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log("Server listening on: http://localhost:" + PORT);
-  });
+});
