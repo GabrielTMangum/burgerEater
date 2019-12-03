@@ -1,17 +1,17 @@
-<h1>Burger Eater</h1>
+<h1 class="text-center">Burger Eater</h1>
 
 {{#each burgers}}
     {{#if devoured}}
-        <li class="list-group-item float-right">
+        <li class="list-group-item float-right" style="background: #BB171F; color: white">
             <p>{{burger_name}}</p>
         </li>
     {{else}}
-        <li class="list-group-item float-left">
+        <li class="list-group-item float-left" style="background: #BB171F; color: white">
             <p>{{burger_name}}</p>
-        <button type="button" id="{{id}}" class="btn btn-secondary btn-lg eatBtn">Eat It!</button>
+        <button type="button" id={{id}} class="btn btn-secondary btn-lg eatBTn" onclick="eat({{id}})">Eat It!</button>
         </li>
     {{/if}}
 {{/each}}
 
-<input class="form-control form-control-lg" type="text" placeholder="New Burger Name">
-<button type="button" class="btn btn-danger btn-lg">Submit</button>
+<input class="form-control form-control-lg newBurgerBox" type="text" placeholder="New Burger Name">
+<button type="button" class="btn btn-danger btn-lg subBtn justify-content-center" onclick="newBurger()">Submit</button>

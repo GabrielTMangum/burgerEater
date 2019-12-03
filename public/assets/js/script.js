@@ -1,22 +1,30 @@
-window.onload = () => {
-    console.log('test')
+console.log('ready')
 
-    $(".eatBtn").on("click", function (event) {
-        console.log("hello")
-        event.preventDefault();
-
-       // let updatedBurger = true; <====== not needed we can assume if the is function is fired that it will be consumed
-        
-        let id = {id: $(this).attr("id")};
-        console.log(id)
-        $.ajax("/api/burgers/", {
-            type: "PUT",
-            data: id
-        }).then(
-            function () {
-                console.log("updated quote");
-                location.assign("/");
-            }
-        );
+const newBurger = () => {
+    console.log("test")
+    let newBurger = {
+        burger_name: $(".newBurgerBox").val()
+    }
+    $.ajax("/api/burgers", {
+        type: "POST",
+        data: newBurger
+    }).then(() => {
+        console.log("new burger created");
+        location.reload();
     });
 };
+
+const eat = id => {
+    console.log('here')
+    console.log($(this).attr("id"))
+    let thisid = {'id': id};
+    console.log(thisid)
+    $.ajax("/api/burgers/", {
+        type: "PUT",
+        data: thisid
+    }).then(() => {
+            console.log("updated burger");
+            location.assign("/");
+        }
+    );
+}
